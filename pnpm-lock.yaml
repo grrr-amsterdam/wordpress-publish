@@ -1,0 +1,39 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+devDependencies:
+  '@prettier/plugin-php':
+    specifier: ^0.22.2
+    version: 0.22.2(prettier@3.2.5)
+  prettier:
+    specifier: ^3.2.5
+    version: 3.2.5
+
+packages:
+
+  /@prettier/plugin-php@0.22.2(prettier@3.2.5):
+    resolution: {integrity: sha512-md0+7tNbsP0oy+wIP3KZZc6fzx1k1jtWaMjOy/gM8yU9f2BDYEi+iHOc/UNPihYvPI28zFTbjvlhH4QXQjQwNg==}
+    peerDependencies:
+      prettier: ^3.0.0
+    dependencies:
+      linguist-languages: 7.27.0
+      php-parser: 3.1.5
+      prettier: 3.2.5
+    dev: true
+
+  /linguist-languages@7.27.0:
+    resolution: {integrity: sha512-Wzx/22c5Jsv2ag+uKy+ITanGA5hzvBZngrNGDXLTC7ZjGM6FLCYGgomauTkxNJeP9of353OM0pWqngYA180xgw==}
+    dev: true
+
+  /php-parser@3.1.5:
+    resolution: {integrity: sha512-jEY2DcbgCm5aclzBdfW86GM6VEIWcSlhTBSHN1qhJguVePlYe28GhwS0yoeLYXpM2K8y6wzLwrbq814n2PHSoQ==}
+    dev: true
+
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true

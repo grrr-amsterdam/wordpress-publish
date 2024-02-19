@@ -1,0 +1,10 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    checkMissingIterableValueType: false
+
+    paths:
+        - src
+
+    level: 9

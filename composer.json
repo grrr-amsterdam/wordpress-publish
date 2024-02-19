@@ -1,0 +1,29 @@
+{
+  "name": "grrr-amsterdam/wordpress-publish",
+  "description": "Allow publishing Next.js frontend from WordPress",
+  "type": "wordpress-plugin",
+  "autoload": {
+    "psr-4": {
+      "Grrr\\WordpressPublish\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Ramiro Hammen",
+      "email": "ramiro@grrr.nl"
+    }
+  ],
+  "require": {
+    "composer/installers": "^2.2"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.10",
+    "johnpbloch/wordpress-core": "^6.4",
+    "szepeviktor/phpstan-wordpress": "^1.3"
+  }
+}
