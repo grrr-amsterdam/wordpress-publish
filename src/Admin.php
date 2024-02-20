@@ -1,7 +1,6 @@
 <?php namespace Grrr\WordpressPublish;
 
 use Grrr\WordpressPublish\Api;
-use Grrr\WordpressPublish\Renderer;
 use Grrr\WordpressPublish\ValueObjects\RestRoute;
 use stdClass;
 
@@ -76,6 +75,9 @@ class Admin
     {
         wp_enqueue_script(static::SLUG);
 
+        // TODO: Create a Renderer class for this
+
+        // These variables are used in the included php file
         $forms = $this->get_form_data();
         $status = $this->api->poll_status();
 

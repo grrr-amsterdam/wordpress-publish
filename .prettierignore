@@ -1,4 +1,4 @@
 /vendor
 /node_modules
-pnpm.lock
+pnpm-lock.yaml
 composer.lock
