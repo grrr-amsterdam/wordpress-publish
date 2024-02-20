@@ -1,8 +1,9 @@
 <?php namespace Grrr\WordpressPublish;
 
-final class Runs {
-
-    public static function createFromGitHubResponse(array $response): self {
+final class Runs
+{
+    public static function createFromGitHubResponse(array $response): self
+    {
         $runs = array_map(function (array $data) {
             return Run::createFromGitHubResponse($data);
         }, $response);
@@ -12,11 +13,12 @@ final class Runs {
     /**
      * @param Run[] $runs
      */
-    public function __construct(private array $runs) {
-
+    public function __construct(private array $runs)
+    {
     }
 
-    public function getLastRun(): ?Run {
+    public function getLastRun(): ?Run
+    {
         $runs = $this->runs;
 
         usort($runs, function (Run $a, Run $b) {
