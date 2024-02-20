@@ -35,7 +35,7 @@ const Deployer = ($) => {
 
   const isReady = (status) => {
     return status === "completed";
-  }
+  };
 
   const getStatusDescription = (status) => {
     if (isReady(status)) {
@@ -84,7 +84,7 @@ const Deployer = ($) => {
           reject(
             response.responseJSON
               ? response.responseJSON.message
-              : response.statusText
+              : response.statusText,
           );
         });
     });

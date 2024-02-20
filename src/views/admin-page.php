@@ -16,11 +16,11 @@
                 <form
                     class="alignleft"
                     data-type="github-deploy-form"
-                    action="<?= $forms['deploy']->action ?>"
-                    method="<?= $forms['deploy']->method ?>"
+                    action="<?= $forms["deploy"]->action ?>"
+                    method="<?= $forms["deploy"]->method ?>"
                     style="margin-right: 10px;"
                     >
-                    <?= wp_nonce_field('wp_rest') ?>
+                    <?= wp_nonce_field("wp_rest") ?>
                     <button
                         class="button button-primary button-large"
                         type="submit"
@@ -33,11 +33,11 @@
                 <form
                     class="alignleft"
                     data-type="github-poll-form"
-                    action="<?= $forms['poll']->action ?>"
-                    method="<?= $forms['poll']->method ?>"
+                    action="<?= $forms["poll"]->action ?>"
+                    method="<?= $forms["poll"]->method ?>"
                     style="margin-right: 10px;"
                     >
-                    <?= wp_nonce_field('wp_rest') ?>
+                    <?= wp_nonce_field("wp_rest") ?>
                     <button
                         class="button button-primary button-large"
                         type="submit"
