@@ -6,12 +6,9 @@
  * Plugin Name: WordPress Publish
  * Description: Allow publishing Next.js frontend from WordPress
  * Author:      Ramiro Hammen <ramiro@grrr.nl>
- * Version:     1.0.0
+ * Version:     0.1.0
  */
 
-use Grrr\WordpressPublish\Admin;
-use Grrr\WordpressPublish\Api;
-use Grrr\WordpressPublish\Config;
 use Grrr\WordpressPublish\Plugin;
 
 if (!defined("ABSPATH")) {
