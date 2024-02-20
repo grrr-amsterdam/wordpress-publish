@@ -12,19 +12,43 @@ class Config
     public static function fromConstants(): self
     {
         if (
-            !defined("GRRR_WORDPRESS_PUBLISH_APPLICATION_ID") ||
-            !defined("GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY") ||
-            !defined("GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH")
+            self::hasConstants([
+                "GRRR_WORDPRESS_PUBLISH_APPLICATION_ID",
+                "GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY",
+                "GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH",
+            ])
         ) {
-            throw new \Exception(
-                "Missing required constants for WordPress Publish."
+            return new self(
+                constant("GRRR_WORDPRESS_PUBLISH_APPLICATION_ID"),
+                constant("GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY"),
+                constant("GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH")
             );
         }
 
-        return new self(
-            constant("GRRR_WORDPRESS_PUBLISH_APPLICATION_ID"),
-            constant("GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY"),
-            constant("GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH")
+        // Make it backwards compatible with the old constants
+        if (
+            self::hasConstants([
+                "GITHUB_DEPLOY_APPLICATION_ID",
+                "GITHUB_DEPLOY_PRIVATE_KEY",
+                "GITHUB_DEPLOY_WORKFLOW_PATH",
+            ])
+        ) {
+            return new self(
+                constant("GITHUB_DEPLOY_APPLICATION_ID"),
+                constant("GITHUB_DEPLOY_PRIVATE_KEY"),
+                constant("GITHUB_DEPLOY_WORKFLOW_PATH")
+            );
+        }
+
+        throw new \Exception("Missing required constants.");
+    }
+
+    protected static function hasConstants(array $constantNames): bool
+    {
+        $definedConstants = array_filter(
+            $constantNames,
+            fn($name) => defined($name)
         );
+        return $constantNames === $definedConstants;
     }
 }
