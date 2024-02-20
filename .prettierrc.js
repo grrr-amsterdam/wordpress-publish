@@ -3,12 +3,11 @@
 // https://github.com/prettier/prettier/issues/13276
 module.exports = {
   plugins: [require.resolve("@prettier/plugin-php")],
-  documenSelectors: ["**/*.php"],
   overrides: [
     {
       files: ["*.php"],
       options: {
-        parseer: "php",
+        parser: "php",
       },
     },
   ],

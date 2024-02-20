@@ -6,5 +6,8 @@ parameters:
 
     paths:
         - src
+    
+    excludePaths:
+        - src/views
 
     level: 9
