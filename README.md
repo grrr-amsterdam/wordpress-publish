@@ -34,4 +34,7 @@ define(
   "GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH",
   "https://api.github.com/repos/acme/example/actions/workflows/publish-production.yml"
 );
+
+# Optionally:
+define("GRRR_WORDPRESS_PUBLISH_REF", "branch or tag name"); # Defaults to 'main'
 ```

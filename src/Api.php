@@ -41,10 +41,13 @@ class Api
      */
     private $routes = [];
 
+    private string $ref;
+
     public function __construct(
         string $applicationId,
         string $privateKey,
-        string $workflowPath
+        string $workflowPath,
+        string $ref
     ) {
         $this->githubApi = new GitHubApi();
         $this->jwt = new JWT($privateKey, $applicationId);
@@ -53,6 +56,7 @@ class Api
             self::ROUTES
         );
         $this->workflowPath = $workflowPath;
+        $this->ref = $ref;
     }
 
     public function register(): void
@@ -147,7 +151,7 @@ class Api
         $deployed = $this->githubApi->dispatchWorkflow(
             $accessToken,
             $this->workflowPath,
-            "main"
+            $this->ref
         );
 
         if ($deployed instanceof WP_Error) {
