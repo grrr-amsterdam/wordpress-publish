@@ -13,7 +13,8 @@ class Plugin
         $api = new Api(
             $config->applicationId,
             $config->privateKey,
-            $config->workflowPath
+            $config->workflowPath,
+            $config->ref ?: "main"
         );
         $api->register();
 

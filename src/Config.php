@@ -5,7 +5,8 @@ class Config
     public function __construct(
         readonly string $applicationId,
         readonly string $privateKey,
-        readonly string $workflowPath
+        readonly string $workflowPath,
+        readonly string $ref
     ) {
     }
 
@@ -21,7 +22,10 @@ class Config
             return new self(
                 constant("GRRR_WORDPRESS_PUBLISH_APPLICATION_ID"),
                 constant("GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY"),
-                constant("GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH")
+                constant("GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH"),
+                defined("GRRR_WORDPRESS_PUBLISH_REF")
+                    ? constant("GRRR_WORDPRESS_PUBLISH_REF")
+                    : ""
             );
         }
 
@@ -36,7 +40,8 @@ class Config
             return new self(
                 constant("GITHUB_DEPLOY_APPLICATION_ID"),
                 constant("GITHUB_DEPLOY_PRIVATE_KEY"),
-                constant("GITHUB_DEPLOY_WORKFLOW_PATH")
+                constant("GITHUB_DEPLOY_WORKFLOW_PATH"),
+                ""
             );
         }
 
