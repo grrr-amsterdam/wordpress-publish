@@ -21,9 +21,8 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: "./pnpm-lock.yaml"
 
-      - run: |
-          pnpm install
-          pnpm exec prettier --check .
+      - run: pnpm install
+      - run: pnpm exec prettier --check .
 
   static-analysis:
     name: Static analysis
