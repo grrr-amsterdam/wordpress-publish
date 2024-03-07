@@ -4,10 +4,18 @@ namespace Grrr\WordpressPublish;
 
 class Plugin
 {
-    const VERSION = "0.1.0";
-
     public function init(): void
     {
+        if (is_admin()) {
+            if (!function_exists("get_plugin_data")) {
+                require_once ABSPATH . "wp-admin/includes/plugin.php";
+            }
+            $plugin_data = get_plugin_data(__FILE__);
+            $version = $plugin_data["Version"];
+        } else {
+            $version = "not-available";
+        }
+
         // Bootstrap components.
         $config = Config::fromConstants();
         $api = new Api(
@@ -20,6 +28,6 @@ class Plugin
 
         $plugin_url = plugin_dir_url(__FILE__);
         $assetsRootUrl = $plugin_url . "assets";
-        (new Admin(__DIR__, $assetsRootUrl, self::VERSION, $api))->register();
+        (new Admin(__DIR__, $assetsRootUrl, $version, $api))->register();
     }
 }
