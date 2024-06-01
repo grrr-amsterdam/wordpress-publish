@@ -77,11 +77,15 @@ class Admin
 
         // TODO: Create a Renderer class for this
 
-        // These variables are used in the included php file
-        $forms = $this->get_form_data();
-        $status = $this->api->poll_status();
+        try {
+            // These variables are used in the included php file
+            $forms = $this->get_form_data();
+            $status = $this->api->poll_status();
 
-        include trailingslashit($this->basePath) . "views/admin-page.php";
+            include trailingslashit($this->basePath) . "views/admin-page.php";
+        } catch (Exception $e) {
+            include trailingslashit($this->basePath) . "views/error-page.php";
+        }
     }
 
     private function get_asset_url(string $path): string
