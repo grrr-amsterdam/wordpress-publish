@@ -44,9 +44,7 @@ class JWT
 
         $privateKey = openssl_pkey_get_private($this->privateKey);
         if ($privateKey === false) {
-            throw new \Exception(
-                "GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY contains an invalid private key."
-            );
+            throw Exception::invalidPrivateKey();
         }
 
         $data = "$header.$payload";
@@ -57,7 +55,7 @@ class JWT
             "sha256WithRSAEncryption"
         );
         if ($success === false) {
-            throw new \Exception("Failed to sign the data.");
+            throw Exception::failedToSignData();
         }
 
         $signature = $this->base64url_encode($signature);
