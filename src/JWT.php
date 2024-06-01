@@ -42,13 +42,24 @@ class JWT
         $header = $this->base64url_encode($header);
         $payload = $this->base64url_encode($payload);
 
+        $privateKey = openssl_pkey_get_private($this->privateKey);
+        if ($privateKey === false) {
+            throw new \Exception(
+                "GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY contains an invalid private key."
+            );
+        }
+
         $data = "$header.$payload";
-        openssl_sign(
+        $success = openssl_sign(
             $data,
             $signature,
-            $this->privateKey,
+            $privateKey,
             "sha256WithRSAEncryption"
         );
+        if ($success === false) {
+            throw new \Exception("Failed to sign the data.");
+        }
+
         $signature = $this->base64url_encode($signature);
 
         $token = "$header.$payload.$signature";
