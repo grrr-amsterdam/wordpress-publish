@@ -29,5 +29,7 @@ class Plugin
         $plugin_url = plugin_dir_url(__FILE__);
         $assetsRootUrl = $plugin_url . "assets";
         (new Admin(__DIR__, $assetsRootUrl, $version, $api))->register();
+
+        (new ScheduledPublish())->register();
     }
 }
