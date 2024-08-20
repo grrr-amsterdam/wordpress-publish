@@ -4,6 +4,8 @@ Allows cms users to publish Next.js frontend from WordPress.
 
 It does so by providing an api to trigger a certain github action. This action will then build and deploy the frontend.
 
+The frontend deploy is also triggered the moment a scheduled post is meant to be published, as set in the WordPress admin.
+
 ## Installation via Composer
 
 ### Composer
