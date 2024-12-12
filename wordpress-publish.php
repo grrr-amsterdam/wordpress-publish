@@ -4,9 +4,9 @@
  * WordPress Publish
  *
  * Plugin Name: WordPress Publish
- * Description: Allow publishing Next.js frontend from WordPress
+ * Description: Allow starting a GitHub workflow from WordPress
  * Author:      Ramiro Hammen <ramiro@grrr.nl>
- * Version:     0.3.0
+ * Version:     1.0.0
  */
 
 use Grrr\WordpressPublish\Plugin;

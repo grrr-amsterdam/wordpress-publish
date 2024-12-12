@@ -54,7 +54,8 @@ class ScheduledPublish
             $config->applicationId,
             $config->privateKey,
             $config->workflowPath,
-            $config->ref ?: "main"
+            $config->ref ?: "main",
+            new GitHubApi($config->owner, $config->repository)
         );
 
         $deployed = $api->deploy(null);
