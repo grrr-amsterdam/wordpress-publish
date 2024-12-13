@@ -30,33 +30,25 @@ class Api
 
     const TRANSIENT_NAME_ACCESS_TOKEN = "wordpress-publish-access-token";
 
-    private GitHubApi $githubApi;
-
     private JWT $jwt;
-
-    private string $workflowPath;
 
     /**
      * @var array<RestRoute>
      */
     private $routes = [];
 
-    private string $ref;
-
     public function __construct(
         string $applicationId,
         string $privateKey,
-        string $workflowPath,
-        string $ref
+        private string $workflowPath,
+        private string $ref,
+        private GitHubApi $githubApi
     ) {
-        $this->githubApi = new GitHubApi();
         $this->jwt = new JWT($privateKey, $applicationId);
         $this->routes = array_map(
             fn($endpoint) => new RestRoute($endpoint),
             self::ROUTES
         );
-        $this->workflowPath = $workflowPath;
-        $this->ref = $ref;
     }
 
     public function register(): void

@@ -3,10 +3,12 @@
 class Config
 {
     public function __construct(
-        readonly string $applicationId,
-        readonly string $privateKey,
-        readonly string $workflowPath,
-        readonly string $ref
+        public readonly string $applicationId,
+        public readonly string $privateKey,
+        public readonly string $owner,
+        public readonly string $repository,
+        public readonly string $workflowPath,
+        public readonly string $ref
     ) {
     }
 
@@ -16,36 +18,26 @@ class Config
             self::hasConstants([
                 "GRRR_WORDPRESS_PUBLISH_APPLICATION_ID",
                 "GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY",
-                "GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH",
+                "GRRR_WORDPRESS_PUBLISH_WORKFLOW",
+                "GRRR_WORDPRESS_PUBLISH_OWNER",
+                "GRRR_WORDPRESS_PUBLISH_REPOSITORY",
             ])
         ) {
             return new self(
                 constant("GRRR_WORDPRESS_PUBLISH_APPLICATION_ID"),
                 constant("GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY"),
-                constant("GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH"),
+                constant("GRRR_WORDPRESS_PUBLISH_OWNER"),
+                constant("GRRR_WORDPRESS_PUBLISH_REPOSITORY"),
+                constant("GRRR_WORDPRESS_PUBLISH_WORKFLOW"),
                 defined("GRRR_WORDPRESS_PUBLISH_REF")
                     ? constant("GRRR_WORDPRESS_PUBLISH_REF")
                     : ""
             );
         }
 
-        // Make it backwards compatible with the old constants
-        if (
-            self::hasConstants([
-                "GITHUB_DEPLOY_APPLICATION_ID",
-                "GITHUB_DEPLOY_PRIVATE_KEY",
-                "GITHUB_DEPLOY_WORKFLOW_PATH",
-            ])
-        ) {
-            return new self(
-                constant("GITHUB_DEPLOY_APPLICATION_ID"),
-                constant("GITHUB_DEPLOY_PRIVATE_KEY"),
-                constant("GITHUB_DEPLOY_WORKFLOW_PATH"),
-                ""
-            );
-        }
-
-        throw new \Exception("Missing required constants.");
+        throw new \Exception(
+            "Missing required constants. See README.md for the available and required constants."
+        );
     }
 
     protected static function hasConstants(array $constantNames): bool

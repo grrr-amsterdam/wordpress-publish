@@ -5,14 +5,18 @@ use WP_Http;
 
 final class GitHubApi
 {
+    public function __construct(
+        private string $owner,
+        private string $repository
+    ) {
+    }
+
     /**
      * @param JWT $jwt
      * @return array|WP_Error
      */
-    public function getInstallation(
-        JWT $jwt,
-        string $organisation = "grrr-amsterdam"
-    ): array|WP_Error {
+    public function getInstallation(JWT $jwt): array|WP_Error
+    {
         $response = (new WP_Http())->request(
             "https://api.github.com/app/installations",
             [
@@ -40,14 +44,14 @@ final class GitHubApi
         }
 
         foreach ($responseBody as $installation) {
-            if ($installation["account"]["login"] === $organisation) {
+            if ($installation["account"]["login"] === $this->owner) {
                 return $installation;
             }
         }
 
         return new WP_Error(
             404,
-            "Organisation $organisation not found in installations."
+            "Organisation $this->owner not found in installations. Install the GitHub app in your organisation."
         );
     }
 
@@ -92,13 +96,17 @@ final class GitHubApi
         string $accessToken,
         string $workflowPath
     ): array|WP_Error {
-        $response = (new WP_Http())->request("$workflowPath/runs", [
-            "method" => "GET",
-            "headers" => [
-                "Authorization" =>
-                    "Basic " . base64_encode("x-access-token:{$accessToken}"),
-            ],
-        ]);
+        $response = (new WP_Http())->request(
+            "https://api.github.com/repos/{$this->owner}/{$this->repository}/actions/workflows/{$workflowPath}/runs",
+            [
+                "method" => "GET",
+                "headers" => [
+                    "Authorization" =>
+                        "Basic " .
+                        base64_encode("x-access-token:{$accessToken}"),
+                ],
+            ]
+        );
 
         if ($response instanceof WP_Error) {
             return $response;
@@ -130,14 +138,18 @@ final class GitHubApi
                 "Failed to encode body for Github workflow dispatch endpoint."
             );
         }
-        $response = (new WP_Http())->request("$workflowPath/dispatches", [
-            "method" => "POST",
-            "body" => $body,
-            "headers" => [
-                "Authorization" =>
-                    "Basic " . base64_encode("x-access-token:{$accessToken}"),
-            ],
-        ]);
+        $response = (new WP_Http())->request(
+            "https://api.github.com/repos/{$this->owner}/{$this->repository}/actions/workflows/{$workflowPath}/dispatches",
+            [
+                "method" => "POST",
+                "body" => $body,
+                "headers" => [
+                    "Authorization" =>
+                        "Basic " .
+                        base64_encode("x-access-token:{$accessToken}"),
+                ],
+            ]
+        );
 
         if ($response instanceof WP_Error) {
             return $response;

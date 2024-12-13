@@ -22,7 +22,8 @@ class Plugin
             $config->applicationId,
             $config->privateKey,
             $config->workflowPath,
-            $config->ref ?: "main"
+            $config->ref ?: "main",
+            new GitHubApi($config->owner, $config->repository)
         );
         $api->register();
 

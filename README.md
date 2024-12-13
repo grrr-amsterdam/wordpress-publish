@@ -32,10 +32,9 @@ Make sure to add the API URL from the redirects by defining some required consta
 ```php
 define("GRRR_WORDPRESS_PUBLISH_APPLICATION_ID", "your-application-id");
 define("GRRR_WORDPRESS_PUBLISH_PRIVATE_KEY", "secret-private-key-rsa-key");
-define(
-  "GRRR_WORDPRESS_PUBLISH_WORKFLOW_PATH",
-  "https://api.github.com/repos/acme/example/actions/workflows/publish-production.yml"
-);
+define("GRRR_WORDPRESS_PUBLISH_OWNER", "norday-agency");
+define("GRRR_WORDPRESS_PUBLISH_REPOSITORY", "your-repository");
+define("GRRR_WORDPRESS_PUBLISH_WORKFLOW", "publish-production.yml");
 
 # Optionally:
 define("GRRR_WORDPRESS_PUBLISH_REF", "branch or tag name"); # Defaults to 'main'
