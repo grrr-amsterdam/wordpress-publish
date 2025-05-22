@@ -38,9 +38,18 @@ class ScheduledPublish
     {
         $timestamp = strtotime($post->post_date_gmt . " GMT");
         if ($timestamp === false) {
-            error_log("Could fetch post_date_gmt for post ID: " . $post->ID);
+            $exception = new Exception(
+                "Error while publish_static_site for post ID: {$post->ID}. Couldn't fetch post_date_gmt"
+            );
+            do_action("wordpress_publish_error", $exception);
+            error_log($exception->getMessage());
             return;
         }
+
+        do_action(
+            "wordpress_publish_message",
+            "Scheduling publish_static_site for post ID: " . $post->ID
+        );
         wp_schedule_single_event($timestamp, "publish_static_site");
     }
 
@@ -60,7 +69,17 @@ class ScheduledPublish
 
         $deployed = $api->deploy(null);
         if (is_wp_error($deployed)) {
-            error_log("Error deploying: " . $deployed->get_error_message());
+            $exception = new Exception(
+                "Error deploying: " . $deployed->get_error_message()
+            );
+            error_log($exception->getMessage());
+            do_action("wordpress_publish_error", $exception);
+            return;
         }
+
+        do_action(
+            "wordpress_publish_message",
+            "Publish site triggered successfully."
+        );
     }
 }
