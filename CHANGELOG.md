@@ -1,5 +1,10 @@
 # Release notes
 
+## 1.1.0
+
+- Fix bug where failed publishes were not shown correctly in the admin interface
+- Update pnpm so prettier works the same locally and in CI
+
 ## 1.0.0
 
 Add support for other GitHub organizations then `grrr-amsterdam`.
