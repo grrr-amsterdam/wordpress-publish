@@ -6,11 +6,17 @@ const Deployer = ($) => {
   const $pollForm = $page.find(`form[data-type="github-poll-form"]`);
   const $messageContainer = $page.find(`div[data-type="status"]`);
 
-  function setMessageType(status) {
-    if (isReady(status)) {
-      $messageContainer.removeClass("error");
+  function setMessageType(status, conclusion) {
+    if (isReady(status) && !hasFailed(conclusion)) {
       $messageContainer.removeClass("notice-info");
+      $messageContainer.removeClass("error");
       $messageContainer.addClass("notice-success");
+      return;
+    }
+    if (isReady(status) && hasFailed(conclusion)) {
+      $messageContainer.removeClass("notice-info");
+      $messageContainer.removeClass("notice-success");
+      $messageContainer.addClass("error");
       return;
     }
     if (isPublishing(status)) {
@@ -29,6 +35,10 @@ const Deployer = ($) => {
     return form.serializeArray().find((input) => input.name === key).value;
   };
 
+  const hasFailed = (conclusion) => {
+    return conclusion === "failure";
+  };
+
   const isPublishing = (status) => {
     return status !== "completed" && status !== "canceled";
   };
@@ -37,9 +47,12 @@ const Deployer = ($) => {
     return status === "completed";
   };
 
-  const getStatusDescription = (status) => {
-    if (isReady(status)) {
+  const getStatusDescription = (status, conclusion) => {
+    if (isReady(status) && !hasFailed(conclusion)) {
       return "Publication successful";
+    }
+    if (isReady(status) && hasFailed(conclusion)) {
+      return "Publication failed";
     }
     if (isPublishing(status)) {
       return "Publication in progress";
@@ -55,12 +68,12 @@ const Deployer = ($) => {
     }).format(new Date(date));
   };
 
-  const renderMessage = (status, updated_at) => {
+  const renderMessage = (status, updated_at, conclusion) => {
     $messageContainer.html(`
-      <p>${getStatusDescription(status)}</p>
+      <p>${getStatusDescription(status, conclusion)}</p>
       <p>${formatDate(updated_at)}</p>
     `);
-    setMessageType(status);
+    setMessageType(status, conclusion);
   };
 
   const renderError = (error) => {
@@ -102,8 +115,8 @@ const Deployer = ($) => {
 
   const poll = () => {
     return post($pollForm)
-      .then(({ status, updated_at }) => {
-        renderMessage(status, updated_at);
+      .then(({ status, updated_at, conclusion }) => {
+        renderMessage(status, updated_at, conclusion);
         if (!isPublishing(status)) {
           enableForm($deployForm);
         }
