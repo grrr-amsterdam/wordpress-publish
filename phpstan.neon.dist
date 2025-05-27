@@ -5,6 +5,7 @@ parameters:
     checkMissingIterableValueType: false
 
     paths:
+        - wordpress-publish.php
         - src
     
     excludePaths:
