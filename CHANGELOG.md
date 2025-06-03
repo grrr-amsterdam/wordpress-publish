@@ -1,5 +1,9 @@
 # Release notes
 
+## 1.1.1
+
+- Add actions for additional logging and exception handling
+
 ## 1.1.0
 
 - Fix bug where failed publishes were not shown correctly in the admin interface
