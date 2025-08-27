@@ -1,0 +1,21 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot access offset 'account' on mixed\\.$#"
+			count: 1
+			path: src/GitHubApi.php
+
+		-
+			message: "#^Cannot access offset 'login' on mixed\\.$#"
+			count: 1
+			path: src/GitHubApi.php
+
+		-
+			message: "#^Method Grrr\\\\WordpressPublish\\\\GitHubApi\\:\\:getInstallation\\(\\) should return array\\|WP_Error but returns mixed\\.$#"
+			count: 1
+			path: src/GitHubApi.php
+
+		-
+			message: "#^Method Grrr\\\\WordpressPublish\\\\GitHubApi\\:\\:getRuns\\(\\) should return array\\|WP_Error but returns mixed\\.$#"
+			count: 1
+			path: src/GitHubApi.php
