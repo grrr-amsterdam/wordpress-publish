@@ -10,7 +10,11 @@ class Plugin
             if (!function_exists("get_plugin_data")) {
                 require_once ABSPATH . "wp-admin/includes/plugin.php";
             }
-            $plugin_data = get_plugin_data(GRRR_WORDPRESS_PUBLISH_PLUGIN_FILE);
+            $plugin_data = get_plugin_data(
+                plugin_file: GRRR_WORDPRESS_PUBLISH_PLUGIN_FILE,
+                markup: true,
+                translate: false
+            );
             $version = $plugin_data["Version"];
         } else {
             $version = "not-available";
