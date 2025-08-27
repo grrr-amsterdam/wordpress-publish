@@ -2,7 +2,6 @@ includes:
     - vendor/szepeviktor/phpstan-wordpress/extension.neon
 
 parameters:
-    checkMissingIterableValueType: false
 
     paths:
         - wordpress-publish.php
@@ -12,3 +11,6 @@ parameters:
         - src/views
 
     level: 9
+
+    ignoreErrors:
+        - identifier: missingType.iterableValue

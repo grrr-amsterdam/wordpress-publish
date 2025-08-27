@@ -6,7 +6,7 @@
  * Plugin Name: WordPress Publish
  * Description: Allow starting a GitHub workflow from WordPress
  * Author:      Ramiro Hammen <ramiro@grrr.nl>
- * Version:     1.1.0
+ * Version:     1.1.2
  */
 
 use Grrr\WordpressPublish\Plugin;
