@@ -1,5 +1,9 @@
 # Release notes
 
+## 1.1.3
+
+- Fix bug where the status of an old run was shown as the last publish
+
 ## 1.1.2
 
 - Fix incorrect loading of textdomain
