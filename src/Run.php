@@ -7,14 +7,16 @@ final class Run
         return new self(
             $response["status"],
             $response["updated_at"],
-            $response["conclusion"]
+            $response["conclusion"],
+            $response["run_started_at"]
         );
     }
 
     public function __construct(
         public string $status,
         public string $updated_at,
-        public ?string $conclusion
+        public ?string $conclusion,
+        public string $run_started_at
     ) {
     }
 

@@ -17,12 +17,18 @@ final class Runs
     {
     }
 
+    /**
+     * Get the run that was started most recently. GitHub can change the
+     * `updated_at` of old runs long after they finished, so that field can not
+     * be used to determine the last run.
+     */
     public function getLastRun(): ?Run
     {
         $runs = $this->runs;
 
         usort($runs, function (Run $a, Run $b) {
-            return strtotime($a->updated_at) - strtotime($b->updated_at);
+            return strtotime($a->run_started_at) <=>
+                strtotime($b->run_started_at);
         });
 
         return array_pop($runs);
